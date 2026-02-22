@@ -17,7 +17,7 @@ COPY apps/web ./apps/web
 
 # Build Next.js app
 WORKDIR /app/apps/web
-RUN pnpm build
+RUN pnpm build 2>&1 || (echo "=== BUILD FAILED ===" && cat /app/apps/web/.next/trace 2>/dev/null; exit 1)
 
 FROM node:20-alpine AS runner
 WORKDIR /app
