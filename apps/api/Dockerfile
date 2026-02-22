@@ -1,10 +1,8 @@
-FROM node:20-alpine AS base
+FROM node:20-alpine AS builder
+WORKDIR /app
 
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
-
-FROM base AS deps
-WORKDIR /app
 
 # Copy workspace files
 COPY package.json pnpm-workspace.yaml ./
@@ -12,20 +10,17 @@ COPY pnpm-lock.yaml* ./
 COPY apps/api/package.json ./apps/api/
 
 # Install dependencies
-RUN pnpm install
-
-FROM base AS runner
-WORKDIR /app
-
-# Copy workspace configuration
-COPY package.json pnpm-workspace.yaml ./
-
-# Copy dependencies
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/apps/api/node_modules ./apps/api/node_modules
+RUN pnpm install --shamefully-hoist
 
 # Copy application code
 COPY apps/api ./apps/api
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+# Copy from builder
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/apps/api ./apps/api
 
 WORKDIR /app/apps/api
 

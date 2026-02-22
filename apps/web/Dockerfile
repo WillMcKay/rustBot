@@ -1,10 +1,8 @@
-FROM node:20-alpine AS base
+FROM node:20-alpine AS builder
+WORKDIR /app
 
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
-
-FROM base AS deps
-WORKDIR /app
 
 # Copy workspace files
 COPY package.json pnpm-workspace.yaml ./
@@ -12,25 +10,16 @@ COPY pnpm-lock.yaml* ./
 COPY apps/web/package.json ./apps/web/
 
 # Install dependencies
-RUN pnpm install
+RUN pnpm install --shamefully-hoist
 
-FROM base AS builder
-WORKDIR /app
-
-# Copy workspace configuration
-COPY package.json pnpm-workspace.yaml ./
-
-# Copy dependencies and source
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
+# Copy source
 COPY apps/web ./apps/web
 
-WORKDIR /app/apps/web
-
 # Build Next.js app
+WORKDIR /app/apps/web
 RUN pnpm build
 
-FROM base AS runner
+FROM node:20-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
