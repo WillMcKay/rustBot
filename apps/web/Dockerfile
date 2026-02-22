@@ -17,6 +17,9 @@ RUN pnpm install
 FROM base AS builder
 WORKDIR /app
 
+# Copy workspace configuration
+COPY package.json pnpm-workspace.yaml ./
+
 # Copy dependencies and source
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
