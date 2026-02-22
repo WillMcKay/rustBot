@@ -17,12 +17,9 @@ cp .env.example .env
 2. Fill in your environment variables in `.env`:
    - `RUSTBOT_API_SECRET` - Secret key for API authentication
    - `NEXTAUTH_SECRET` - Secret for NextAuth (generate with `openssl rand -base64 32`)
+   - `NEXTAUTH_URL` - Full URL of your web app (e.g., https://rustbot.example.com)
    - `STEAM_API_KEY` - Your Steam API key
-   - `DISCORD_TOKEN` - Your Discord bot token
-   - `DISCORD_CLIENT_ID` - Your Discord application client ID
-   - `DISCORD_GUILD_ID` - Your Discord server/guild ID
-   - `API_DOMAIN` - Domain for API (e.g., api.example.com)
-   - `WEB_DOMAIN` - Domain for web app (e.g., example.com)
+   - `RUSTBOT_API_URL` - Full URL of your API (e.g., https://api.rustbot.example.com)
 
 ## Deployment
 
