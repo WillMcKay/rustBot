@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: rustbot-api
+    expose:
+      - "3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - RUSTBOT_API_SECRET=${RUSTBOT_API_SECRET}
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
+      - DISCORD_GUILD_ID=${DISCORD_GUILD_ID}
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - coolify
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rustbot-api.rule=Host(`${API_DOMAIN}`)"
+      - "traefik.http.routers.rustbot-api.entrypoints=websecure"
+      - "traefik.http.routers.rustbot-api.tls=true"
+      - "traefik.http.routers.rustbot-api.tls.certresolver=letsencrypt"
+      - "traefik.http.services.rustbot-api.loadbalancer.server.port=3001"
+
+networks:
+  coolify:
+    external: true
