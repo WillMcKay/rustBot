@@ -7,11 +7,12 @@ FROM base AS deps
 WORKDIR /app
 
 # Copy workspace files
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY package.json pnpm-workspace.yaml ./
+COPY pnpm-lock.yaml* ./
 COPY apps/web/package.json ./apps/web/
 
 # Install dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 FROM base AS builder
 WORKDIR /app

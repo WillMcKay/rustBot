@@ -1,6 +1,6 @@
 # Docker Setup
 
-This project uses Docker Compose to run both the API and web application.
+This project uses separate Docker Compose files for independent deployment of the API and web application.
 
 ## Prerequisites
 
@@ -17,52 +17,57 @@ cp .env.example .env
 2. Fill in your environment variables in `.env`:
    - `RUSTBOT_API_SECRET` - Secret key for API authentication
    - `NEXTAUTH_SECRET` - Secret for NextAuth (generate with `openssl rand -base64 32`)
-   - `NEXTAUTH_URL` - Your application URL (default: http://localhost:3000)
    - `STEAM_API_KEY` - Your Steam API key
+   - `DISCORD_TOKEN` - Your Discord bot token
+   - `DISCORD_CLIENT_ID` - Your Discord application client ID
+   - `DISCORD_GUILD_ID` - Your Discord server/guild ID
+   - `API_DOMAIN` - Domain for API (e.g., api.example.com)
+   - `WEB_DOMAIN` - Domain for web app (e.g., example.com)
 
-## Usage
+## Deployment
 
-### Build and Start
+### Separate Deployments (Recommended)
 
+The API and web app are designed to be deployed independently:
+
+**API Deployment:**
 ```bash
-docker-compose up -d
+docker-compose -f docker-compose.api.yml up -d
 ```
 
-This will:
-- Build both the API and web containers
-- Start the services in the background
-- API will be available at http://localhost:3001
-- Web will be available at http://localhost:3000
+**Web Deployment:**
+```bash
+docker-compose -f docker-compose.web.yml up -d
+```
+
+Both use Traefik for routing and automatic SSL via Let's Encrypt. Configure your domains in the environment variables.
 
 ### View Logs
 
 ```bash
-# All services
-docker-compose logs -f
+# API logs
+docker-compose -f docker-compose.api.yml logs -f
 
-# Specific service
-docker-compose logs -f api
-docker-compose logs -f web
+# Web logs
+docker-compose -f docker-compose.web.yml logs -f
 ```
 
 ### Stop Services
 
 ```bash
-docker-compose down
-```
+# Stop API
+docker-compose -f docker-compose.api.yml down
 
-### Rebuild After Changes
-
-```bash
-docker-compose up -d --build
+# Stop Web
+docker-compose -f docker-compose.web.yml down
 ```
 
 ## Development
 
-For development with Docker (hot reload enabled):
+For local development with hot reload:
 
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+docker-compose -f docker-compose.dev.yml up
 ```
 
 Or run services locally without Docker:
@@ -72,6 +77,9 @@ pnpm install
 pnpm dev
 ```
 
-## Network
+## Coolify Deployment
 
-Both services communicate through a Docker network called `rustbot-network`. The web app can reach the API at `http://api:3001` internally.
+1. Create two separate resources in Coolify
+2. Deploy `docker-compose.api.yml` for the Discord bot
+3. Deploy `docker-compose.web.yml` for the web interface
+4. Set environment variables separately for each deployment
