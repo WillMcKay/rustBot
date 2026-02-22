@@ -35,12 +35,13 @@ export const authOptions: NextAuthOptions = {
 async function auth(
   req: NextRequest,
   ctx: {
-    params: {
+    params: Promise<{
       nextauth: string[];
-    };
+    }>;
   }
 ) {
-  return NextAuth(req, ctx, {
+  const params = await ctx.params;
+  return NextAuth(req, { params }, {
     ...authOptions,
     providers: [
       Steam(req, {
