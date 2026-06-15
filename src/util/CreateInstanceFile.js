@@ -40,13 +40,6 @@ module.exports = (client, guild) => {
                 alarms: null,
                 storageMonitors: null
             },
-            informationMessageId: {
-                map: null,
-                server: null,
-                event: null,
-                team: null,
-                battlemetricsPlayers: null
-            },
             activeServer: null,
             serverList: {},
             serverListLite: {},
@@ -116,8 +109,7 @@ module.exports = (client, guild) => {
                 switches: null,
                 switchGroups: null,
                 alarms: null,
-                storageMonitors: null,
-                activity: null
+                storageMonitors: null
             }
         }
         else {
@@ -128,24 +120,6 @@ module.exports = (client, guild) => {
             if (!instance.channelId.hasOwnProperty('switchGroups')) instance.channelId.switchGroups = null;
             if (!instance.channelId.hasOwnProperty('alarms')) instance.channelId.alarms = null;
             if (!instance.channelId.hasOwnProperty('storageMonitors')) instance.channelId.storageMonitors = null;
-        }
-
-        if (!instance.hasOwnProperty('informationMessageId')) {
-            instance.informationMessageId = {
-                map: null,
-                server: null,
-                event: null,
-                team: null,
-                battlemetricsPlayers: null
-            }
-        }
-        else {
-            if (!instance.informationMessageId.hasOwnProperty('map')) instance.informationMessageId.map = null;
-            if (!instance.informationMessageId.hasOwnProperty('server')) instance.informationMessageId.server = null;
-            if (!instance.informationMessageId.hasOwnProperty('event')) instance.informationMessageId.event = null;
-            if (!instance.informationMessageId.hasOwnProperty('team')) instance.informationMessageId.team = null;
-            if (!instance.informationMessageId.hasOwnProperty('team'))
-                instance.informationMessageId.battlemetricsPlayers = null;
         }
 
         if (!instance.hasOwnProperty('activeServer')) instance.activeServer = null;
