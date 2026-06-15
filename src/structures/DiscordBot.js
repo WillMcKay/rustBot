@@ -209,15 +209,6 @@ class DiscordBot extends Discord.Client {
         const instance = this.getInstance(guild.id);
         const firstTime = instance.firstTime;
 
-        const staleChannels = ['settings', 'information', 'commands', 'events', 'trackers'];
-        for (const key of staleChannels) {
-            if (instance.channelId.hasOwnProperty(key) && instance.channelId[key] !== null) {
-                await require('../discordTools/discordTools.js').removeTextChannel(guild.id, instance.channelId[key]);
-                delete instance.channelId[key];
-            }
-        }
-        this.setInstance(guild.id, instance);
-
         await require('../discordTools/RegisterSlashCommands')(this, guild);
 
         let category = await require('../discordTools/SetupGuildCategory')(this, guild);

@@ -60,7 +60,6 @@ module.exports = {
         /* Was the disconnection unexpected? */
         if (client.activeRustplusInstances[guildId]) {
             if (!client.rustplusReconnecting[guildId]) {
-                await DiscordMessages.sendServerChangeStateMessage(guildId, serverId, 1);
                 await DiscordMessages.sendServerMessage(guildId, serverId, 2);
             }
 

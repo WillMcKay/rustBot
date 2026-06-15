@@ -48,7 +48,6 @@ module.exports = {
             instance.activeServer = null;
             client.setInstance(guildId, instance);
 
-            await DiscordMessages.sendServerConnectionInvalidMessage(guildId, serverId);
             await DiscordMessages.sendServerMessage(guildId, serverId, null);
 
             client.resetRustplusVariables(guildId);
@@ -67,7 +66,6 @@ module.exports = {
                 rustplus.map = new Map(map.map, rustplus);
 
                 await rustplus.map.writeMap(false, true);
-                await DiscordMessages.sendServerWipeDetectedMessage(guildId, serverId);
             }
             else {
                 rustplus.map = new Map(map.map, rustplus);
@@ -89,7 +87,6 @@ module.exports = {
                 client.rustplusReconnectTimers[guildId] = null;
             }
 
-            await DiscordMessages.sendServerChangeStateMessage(guildId, serverId, 0);
         }
 
         await DiscordMessages.sendServerMessage(guildId, serverId, null);

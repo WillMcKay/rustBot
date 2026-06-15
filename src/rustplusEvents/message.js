@@ -184,8 +184,6 @@ async function messageBroadcastEntityChangedSmartAlarm(rustplus, client, message
     if (active) {
         server.alarms[entityId].lastTrigger = Math.floor(new Date() / 1000);
         client.setInstance(rustplus.guildId, instance);
-        await DiscordMessages.sendSmartAlarmTriggerMessage(rustplus.guildId, serverId, entityId);
-
         if (instance.generalSettings.smartAlarmNotifyInGame) {
             rustplus.sendInGameMessage(`${server.alarms[entityId].name}: ${server.alarms[entityId].message}`);
         }
@@ -254,8 +252,6 @@ async function updateToolCupboard(rustplus, client, message) {
 
         if (info.entityInfo.payload.protectionExpiry === 0 && server.storageMonitors[entityId].decaying === false) {
             server.storageMonitors[entityId].decaying = true;
-
-            await DiscordMessages.sendDecayingNotificationMessage(rustplus.guildId, rustplus.serverId, entityId);
 
             if (server.storageMonitors[entityId].inGame) {
                 rustplus.sendInGameMessage(client.intlGet(rustplus.guildId, 'isDecaying', {

@@ -463,7 +463,6 @@ async function alarmAlarm(client, guild, title, message, body) {
         instance.generalSettings.fcmAlarmNotificationEnabled) {
         server.alarms[entityId].lastTrigger = Math.floor(new Date() / 1000);
         client.setInstance(guild.id, instance);
-        await DiscordMessages.sendSmartAlarmTriggerMessage(guild.id, serverId, entityId);
         client.log(client.intlGet(null, 'infoCap'), `${title}: ${message}`);
     }
 }
@@ -487,7 +486,6 @@ async function alarmRaidAlarm(client, guild, title, message, body) {
     }
 
     if (rustplus && (serverId === rustplus.serverId)) {
-        await DiscordMessages.sendMessage(guild.id, content, null, instance.channelId.activity);
         rustplus.sendInGameMessage(`${title}: ${message}`);
     }
 
@@ -522,7 +520,6 @@ async function teamLogin(client, guild, title, message, body) {
     const serverId = `${body.ip}-${body.port}`;
 
     if (!rustplus || (rustplus && (serverId !== rustplus.serverId))) {
-        await DiscordMessages.sendMessage(guild.id, content, null, instance.channelId.activity);
         client.log(client.intlGet(null, 'infoCap'),
             client.intlGet(null, 'playerJustConnectedTo', {
                 name: body.targetName,
@@ -539,5 +536,4 @@ async function teamLogin(client, guild, title, message, body) {
 //        components: [DiscordButtons.getNewsButton(guild.id, body, isValidUrl(body.url))]
 //    }
 //
-//    await DiscordMessages.sendMessage(guild.id, content, null, instance.channelId.activity);
 //}

@@ -38,8 +38,7 @@ module.exports = (client, guild) => {
                 switches: null,
                 switchGroups: null,
                 alarms: null,
-                storageMonitors: null,
-                activity: null
+                storageMonitors: null
             },
             informationMessageId: {
                 map: null,
@@ -129,7 +128,6 @@ module.exports = (client, guild) => {
             if (!instance.channelId.hasOwnProperty('switchGroups')) instance.channelId.switchGroups = null;
             if (!instance.channelId.hasOwnProperty('alarms')) instance.channelId.alarms = null;
             if (!instance.channelId.hasOwnProperty('storageMonitors')) instance.channelId.storageMonitors = null;
-            if (!instance.channelId.hasOwnProperty('activity')) instance.channelId.activity = null;
         }
 
         if (!instance.hasOwnProperty('informationMessageId')) {

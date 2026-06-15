@@ -88,8 +88,6 @@ module.exports = {
                         location: location.location
                     });
 
-                    await DiscordMessages.sendItemAvailableInVendingMachineMessage(rustplus, str);
-
                     if (rustplus.generalSettings.itemAvailableInVendingMachineNotifyInGame) {
                         rustplus.sendInGameMessage(str);
                     }

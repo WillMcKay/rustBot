@@ -45,7 +45,6 @@ module.exports = {
                 const info = await rustplus.getEntityInfoAsync(entityId);
                 if (!(await rustplus.isResponseValid(info))) {
                     if (instance.serverList[serverId].switches[entityId].reachable) {
-                        await DiscordMessages.sendSmartSwitchNotFoundMessage(guildId, serverId, entityId);
                         instance.serverList[serverId].switches[entityId].reachable = false;
                         client.setInstance(guildId, instance);
 
@@ -77,7 +76,6 @@ module.exports = {
                     const response = await rustplus.turnSmartSwitchOnAsync(entityId);
                     if (!(await rustplus.isResponseValid(response))) {
                         if (instance.serverList[serverId].switches[entityId].reachable) {
-                            await DiscordMessages.sendSmartSwitchNotFoundMessage(guildId, serverId, entityId);
                         }
                         instance.serverList[serverId].switches[entityId].reachable = false;
 
@@ -100,7 +98,6 @@ module.exports = {
                     const response = await rustplus.turnSmartSwitchOffAsync(entityId);
                     if (!(await rustplus.isResponseValid(response))) {
                         if (instance.serverList[serverId].switches[entityId].reachable) {
-                            await DiscordMessages.sendSmartSwitchNotFoundMessage(guildId, serverId, entityId);
                         }
                         instance.serverList[serverId].switches[entityId].reachable = false;
 
@@ -127,7 +124,6 @@ module.exports = {
                     const response = await rustplus.turnSmartSwitchOffAsync(entityId);
                     if (!(await rustplus.isResponseValid(response))) {
                         if (instance.serverList[serverId].switches[entityId].reachable) {
-                            await DiscordMessages.sendSmartSwitchNotFoundMessage(guildId, serverId, entityId);
                         }
                         instance.serverList[serverId].switches[entityId].reachable = false;
 
@@ -150,7 +146,6 @@ module.exports = {
                     const response = await rustplus.turnSmartSwitchOnAsync(entityId);
                     if (!(await rustplus.isResponseValid(response))) {
                         if (instance.serverList[serverId].switches[entityId].reachable) {
-                            await DiscordMessages.sendSmartSwitchNotFoundMessage(guildId, serverId, entityId);
                         }
                         instance.serverList[serverId].switches[entityId].reachable = false;
 
@@ -179,7 +174,6 @@ module.exports = {
                 const response = await rustplus.turnSmartSwitchOnAsync(entityId);
                 if (!(await rustplus.isResponseValid(response))) {
                     if (instance.serverList[serverId].switches[entityId].reachable) {
-                        await DiscordMessages.sendSmartSwitchNotFoundMessage(guildId, serverId, entityId);
                     }
                     instance.serverList[serverId].switches[entityId].reachable = false;
 
@@ -204,7 +198,6 @@ module.exports = {
                 const response = await rustplus.turnSmartSwitchOffAsync(entityId);
                 if (!(await rustplus.isResponseValid(response))) {
                     if (instance.serverList[serverId].switches[entityId].reachable) {
-                        await DiscordMessages.sendSmartSwitchNotFoundMessage(guildId, serverId, entityId);
                     }
                     instance.serverList[serverId].switches[entityId].reachable = false;
 
@@ -235,7 +228,6 @@ module.exports = {
                     const response = await rustplus.turnSmartSwitchAsync(entityId, shouldBeOn);
                     if (!(await rustplus.isResponseValid(response))) {
                         if (instance.serverList[serverId].switches[entityId].reachable) {
-                            await DiscordMessages.sendSmartSwitchNotFoundMessage(guildId, serverId, entityId);
                         }
                         instance.serverList[serverId].switches[entityId].reachable = false;
 
@@ -267,7 +259,6 @@ module.exports = {
                     const response = await rustplus.turnSmartSwitchAsync(entityId, shouldBeOn);
                     if (!(await rustplus.isResponseValid(response))) {
                         if (instance.serverList[serverId].switches[entityId].reachable) {
-                            await DiscordMessages.sendSmartSwitchNotFoundMessage(guildId, serverId, entityId);
                         }
                         instance.serverList[serverId].switches[entityId].reachable = false;
 
@@ -297,7 +288,6 @@ module.exports = {
                     const response = await rustplus.turnSmartSwitchAsync(entityId, shouldBeOn);
                     if (!(await rustplus.isResponseValid(response))) {
                         if (instance.serverList[serverId].switches[entityId].reachable) {
-                            await DiscordMessages.sendSmartSwitchNotFoundMessage(guildId, serverId, entityId);
                         }
                         instance.serverList[serverId].switches[entityId].reachable = false;
 
@@ -327,7 +317,6 @@ module.exports = {
                     const response = await rustplus.turnSmartSwitchAsync(entityId, shouldBeOn);
                     if (!(await rustplus.isResponseValid(response))) {
                         if (instance.serverList[serverId].switches[entityId].reachable) {
-                            await DiscordMessages.sendSmartSwitchNotFoundMessage(guildId, serverId, entityId);
                         }
                         instance.serverList[serverId].switches[entityId].reachable = false;
 
@@ -503,7 +492,6 @@ module.exports = {
                 name: switches[entityId].name
             }));
             if (switches[entityId].reachable) {
-                await DiscordMessages.sendSmartSwitchNotFoundMessage(guildId, serverId, entityId);
             }
             switches[entityId].reachable = false;
             switches[entityId].active = prevActive;

@@ -107,7 +107,7 @@ module.exports = {
         }
 
         for (const [name, id] of Object.entries(instance.channelId)) {
-            const writePerm = (name !== 'commands' && name !== 'teamchat') ? false : true;
+            const writePerm = (name !== 'teamchat') ? false : true;
 
             const channel = DiscordTools.getTextChannelById(guild.id, id);
             if (channel) {
