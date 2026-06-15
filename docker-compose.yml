@@ -1,6 +1,6 @@
 services:
   rustplusbot:
-    image: ghcr.io/faithix/rustplusplus:master
+    build: .
     container_name: rustplusbot
     volumes:
       - ./logs:/app/logs
