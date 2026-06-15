@@ -43,7 +43,7 @@ module.exports = {
         }
 
         client.user.setPresence({
-            activities: [{ name: '/help', type: Discord.ActivityType.Listening }],
+            activities: [{ name: `Watching over ${client.guilds.cache.size} wipes`, type: Discord.ActivityType.Watching }],
             status: 'online'
         });
 
