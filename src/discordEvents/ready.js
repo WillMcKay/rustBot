@@ -35,6 +35,13 @@ module.exports = {
             client.log(client.intlGet(null, 'warningCap'), client.intlGet(null, 'ignoreSetAvatar'));
         }
 
+        try {
+            await client.user.setBanner(Path.join(__dirname, '..', 'resources/images/logo.png'));
+        }
+        catch (e) {
+            client.log(client.intlGet(null, 'warningCap'), client.intlGet(null, 'ignoreSetBanner'));
+        }
+
         client.user.setPresence({
             activities: [{ name: '/help', type: Discord.ActivityType.Listening }],
             status: 'online'

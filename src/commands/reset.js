@@ -66,16 +66,11 @@ module.exports = {
 				}
 
 				await DiscordTools.clearTextChannel(guild.id, instance.channelId.switches, 100);
-				await DiscordTools.clearTextChannel(guild.id, instance.channelId.switchGroups, 100);
-				await DiscordTools.clearTextChannel(guild.id, instance.channelId.storageMonitors, 100);
 
 				await require('../discordTools/SetupServerList')(client, guild);
 
 				if (rustplus && rustplus.isOperational) {
-					await require('../discordTools/SetupSwitches')(client, rustplus);
-					await require('../discordTools/SetupSwitchGroups')(client, rustplus);
-					await require('../discordTools/SetupAlarms')(client, rustplus);
-					await require('../discordTools/SetupStorageMonitors')(client, rustplus);
+					await require('../discordTools/SetupSmartDevices')(client, rustplus);
 				}
 
 				await PermissionHandler.resetPermissionsAllChannels(client, guild);
@@ -106,47 +101,10 @@ module.exports = {
 				}));
 			} break;
 
-			case 'switches': {
-				await DiscordTools.clearTextChannel(guild.id, instance.channelId.switches, 100);
-				await DiscordTools.clearTextChannel(guild.id, instance.channelId.switchGroups, 100);
-
-				const perms = PermissionHandler.getPermissionsRemoved(client, guild);
-				try {
-					const category = await DiscordTools.getCategoryById(guild.id, instance.channelId.category);
-					await category.permissionOverwrites.set(perms);
-				}
-				catch (e) {
-					/* Ignore */
-				}
-
-				const rustplus = client.rustplusInstances[guild.id];
-				if (rustplus && rustplus.isOperational) {
-					await require('../discordTools/SetupSwitches')(client, rustplus);
-					await require('../discordTools/SetupSwitchGroups')(client, rustplus);
-				}
-
-				await PermissionHandler.resetPermissionsAllChannels(client, guild);
-
-				client.log(client.intlGet(null, 'infoCap'), client.intlGet(null, 'slashCommandValueChange', {
-					id: `${verifyId}`,
-					value: `switches`
-				}));
-			} break;
-
-			case 'alarms': {
-				const rustplus = client.rustplusInstances[guild.id];
-				if (rustplus && rustplus.isOperational) {
-					await require('../discordTools/SetupAlarms')(client, rustplus);
-				}
-
-				client.log(client.intlGet(null, 'infoCap'), client.intlGet(null, 'slashCommandValueChange', {
-					id: `${verifyId}`,
-					value: `alarms`
-				}));
-			} break;
-
+			case 'switches':
+			case 'alarms':
 			case 'storagemonitors': {
-				await DiscordTools.clearTextChannel(guild.id, instance.channelId.storageMonitors, 100);
+				await DiscordTools.clearTextChannel(guild.id, instance.channelId.switches, 100);
 
 				const perms = PermissionHandler.getPermissionsRemoved(client, guild);
 				try {
@@ -159,14 +117,14 @@ module.exports = {
 
 				const rustplus = client.rustplusInstances[guild.id];
 				if (rustplus && rustplus.isOperational) {
-					await require('../discordTools/SetupStorageMonitors')(client, rustplus);
+					await require('../discordTools/SetupSmartDevices')(client, rustplus);
 				}
 
 				await PermissionHandler.resetPermissionsAllChannels(client, guild);
 
 				client.log(client.intlGet(null, 'infoCap'), client.intlGet(null, 'slashCommandValueChange', {
 					id: `${verifyId}`,
-					value: `storagemonitors`
+					value: interaction.options.getSubcommand()
 				}));
 			} break;
 

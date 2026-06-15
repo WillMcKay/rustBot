@@ -74,10 +74,7 @@ module.exports = {
         await DiscordMessages.sendServerMessage(guildId, serverId, null);
 
         /* Setup Smart Devices */
-        await require('../discordTools/SetupSwitches')(client, rustplus);
-        await require('../discordTools/SetupSwitchGroups')(client, rustplus);
-        await require('../discordTools/SetupAlarms')(client, rustplus);
-        await require('../discordTools/SetupStorageMonitors')(client, rustplus);
+        await require('../discordTools/SetupSmartDevices')(client, rustplus);
         rustplus.isNewConnection = false;
         rustplus.loadMarkers();
 

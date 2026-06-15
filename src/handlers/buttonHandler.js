@@ -604,8 +604,6 @@ module.exports = async (client, interaction) => {
 
         if (rustplus && (rustplus.serverId === ids.serverId || rustplus.serverId === instance.activeServer)) {
             await DiscordTools.clearTextChannel(rustplus.guildId, instance.channelId.switches, 100);
-            await DiscordTools.clearTextChannel(rustplus.guildId, instance.channelId.switchGroups, 100);
-            await DiscordTools.clearTextChannel(rustplus.guildId, instance.channelId.storageMonitors, 100);
 
             instance.activeServer = null;
             client.setInstance(guildId, instance);
