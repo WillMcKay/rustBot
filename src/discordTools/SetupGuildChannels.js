@@ -6,7 +6,7 @@ const PermissionHandler = require('../handlers/permissionHandler.js');
 module.exports = async (client, guild, category) => {
     await addTextChannel(client.intlGet(guild.id, 'channelNameServers'), 'servers', client, guild, category);
     await addTextChannel(client.intlGet(guild.id, 'channelNameTeamchat'), 'teamchat', client, guild, category, true);
-    await addTextChannel('smart-devices', 'switches', client, guild, category);
+    await addTextChannel('devices', 'switches', client, guild, category);
 
     /* All smart device types share the same channel */
     const instance = client.getInstance(guild.id);
