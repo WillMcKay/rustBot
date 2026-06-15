@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-    https://github.com/alexemanuelol/rustplusplus
+    https://github.com/alexemanuelol/Better Rust
 
 */
 
@@ -25,9 +25,7 @@ module.exports = {
         const guildId = rustplus.guildId;
         const generalSettings = rustplus.generalSettings;
         const commandDelayMs = parseInt(generalSettings.commandDelay) * 1000;
-        const trademark = generalSettings.trademark;
-        const trademarkString = (trademark === 'NOT SHOWING') ? '' : `${trademark} | `;
-        const messageMaxLength = Constants.MAX_LENGTH_TEAM_MESSAGE - trademarkString.length;
+        const messageMaxLength = Constants.MAX_LENGTH_TEAM_MESSAGE;
 
         /* Time to write a message from the queue. If message === null, that means that its a timer call. */
         if (message === null) {
@@ -58,11 +56,11 @@ module.exports = {
 
             if (Array.isArray(message)) {
                 for (const msg of message) {
-                    handleMessage(rustplus, msg, trademarkString, messageMaxLength)
+                    handleMessage(rustplus, msg, messageMaxLength)
                 }
             }
             else if (typeof message === 'string') {
-                handleMessage(rustplus, message, trademarkString, messageMaxLength)
+                handleMessage(rustplus, message, messageMaxLength)
             }
         }
 
@@ -73,12 +71,12 @@ module.exports = {
     },
 };
 
-function handleMessage(rustplus, message, trademarkString, maxLength) {
+function handleMessage(rustplus, message, maxLength) {
     if (typeof message !== 'string') return;
 
     const strings = message.match(new RegExp(`.{1,${maxLength}}(\\s|$)`, 'g'));
 
     for (const str of strings) {
-        rustplus.inGameChatQueue.push(`${trademarkString}${str}`);
+        rustplus.inGameChatQueue.push(str);
     }
 }

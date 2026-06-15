@@ -1,5 +1,5 @@
 {
-    "name": "rustplusplus",
+    "name": "Better Rust",
     "version": "1.22.0",
     "description": "A NodeJS Discord Bot that uses the rustplus.js library to utilize the power of the Rust+ Companion App with additional Quality-of-Life features.",
     "main": "index.ts",
@@ -10,14 +10,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/alexemanuelol/rustplusplus.git"
+        "url": "https://github.com/alexemanuelol/Better Rust.git"
     },
     "author": "Alexemanuelol",
     "license": "SEE LICENSE IN LICENSE",
     "bugs": {
-        "url": "https://github.com/alexemanuelol/rustplusplus/issues"
+        "url": "https://github.com/alexemanuelol/Better Rust/issues"
     },
-    "homepage": "https://github.com/alexemanuelol/rustplusplus#readme",
+    "homepage": "https://github.com/alexemanuelol/Better Rust#readme",
     "dependencies": {
         "@discordjs/rest": "^2.5.1",
         "@discordjs/voice": "^0.18.0",
