@@ -36,14 +36,14 @@ module.exports = {
         }
 
         try {
-            await client.user.setBanner(Path.join(__dirname, '..', 'resources/images/logo.png'));
+            await client.user.setBanner(Path.join(__dirname, '..', 'resources/images/banner.png'));
         }
         catch (e) {
             client.log(client.intlGet(null, 'warningCap'), client.intlGet(null, 'ignoreSetBanner'));
         }
 
         client.user.setPresence({
-            activities: [{ name: `${client.guilds.cache.size} wipes`, type: Discord.ActivityType.Custom, state: 'with Rust+ Companion' }],
+            activities: [{ name: '', type: Discord.ActivityType.Custom, state: `Watching ${client.guilds.cache.size + 5} Wipes` }],
             status: 'online'
         });
 
