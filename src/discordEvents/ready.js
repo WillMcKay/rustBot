@@ -43,7 +43,7 @@ module.exports = {
         }
 
         client.user.setPresence({
-            activities: [{ name: `Watching over ${client.guilds.cache.size} wipes`, type: Discord.ActivityType.Watching }],
+            activities: [{ name: `${client.guilds.cache.size} wipes`, type: Discord.ActivityType.Custom, state: 'with Rust+ Companion' }],
             status: 'online'
         });
 
