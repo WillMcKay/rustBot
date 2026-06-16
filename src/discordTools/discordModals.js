@@ -21,22 +21,13 @@ const LANGUAGES = [
 ];
 
 function boolLabel(customId, labelText, currentValue) {
-    const select = new Discord.StringSelectMenuBuilder()
-        .setCustomId(customId)
-        .setRequired(true)
-        .addOptions(
-            new Discord.StringSelectMenuOptionBuilder()
-                .setLabel('True')
-                .setValue('true')
-                .setDefault(currentValue === true),
-            new Discord.StringSelectMenuOptionBuilder()
-                .setLabel('False')
-                .setValue('false')
-                .setDefault(currentValue === false)
-        );
     return new Discord.LabelBuilder()
         .setLabel(labelText)
-        .setStringSelectMenuComponent(select);
+        .setCheckboxComponent(
+            new Discord.CheckboxBuilder()
+                .setCustomId(customId)
+                .setDefault(currentValue === true)
+        );
 }
 
 function languageLabel(customId, labelText, currentValue) {
