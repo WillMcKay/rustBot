@@ -1,6 +1,6 @@
 const Style = {
-    font_id: 8,
-    effect_id: 2,
+    font_id: 5,
+    effect_id: 5,
     colors: [16777215, 255]
 };
 
