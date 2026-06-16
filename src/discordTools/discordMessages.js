@@ -210,7 +210,7 @@ module.exports = {
             content: entity.everyone ? '@everyone' : ''
         }
 
-        await module.exports.sendMessage(guildId, content, null, instance.channelId.activity);
+        await module.exports.sendMessage(guildId, content, null, instance.channelId.teamchat);
     },
 
     sendStorageMonitorDisconnectNotificationMessage: async function (guildId, serverId, entityId) {
@@ -224,7 +224,7 @@ module.exports = {
             content: entity.everyone ? '@everyone' : ''
         }
 
-        await module.exports.sendMessage(guildId, content, null, instance.channelId.activity);
+        await module.exports.sendMessage(guildId, content, null, instance.channelId.teamchat);
     },
 
     sendStorageMonitorNotFoundMessage: async function (guildId, serverId, entityId) {
@@ -238,7 +238,7 @@ module.exports = {
             content: entity.everyone ? '@everyone' : ''
         }
 
-        await module.exports.sendMessage(guildId, content, null, instance.channelId.activity);
+        await module.exports.sendMessage(guildId, content, null, instance.channelId.teamchat);
     },
 
     sendSmartSwitchNotFoundMessage: async function (guildId, serverId, entityId) {
@@ -251,7 +251,7 @@ module.exports = {
                 Path.join(__dirname, '..', `resources/images/electrics/${entity.image}`))]
         }
 
-        await module.exports.sendMessage(guildId, content, null, instance.channelId.activity);
+        await module.exports.sendMessage(guildId, content, null, instance.channelId.teamchat);
     },
 
     sendSmartAlarmNotFoundMessage: async function (guildId, serverId, entityId) {
@@ -265,7 +265,7 @@ module.exports = {
             content: entity.everyone ? '@everyone' : ''
         }
 
-        await module.exports.sendMessage(guildId, content, null, instance.channelId.activity);
+        await module.exports.sendMessage(guildId, content, null, instance.channelId.teamchat);
     },
 
     sendSmartAlarmTriggerMessage: async function (guildId, serverId, entityId) {
@@ -279,7 +279,7 @@ module.exports = {
             content: entity.everyone ? '@everyone' : ''
         }
 
-        await module.exports.sendMessage(guildId, content, null, instance.channelId.activity);
+        await module.exports.sendMessage(guildId, content, null, instance.channelId.teamchat);
     },
 
     sendServerChangeStateMessage: async function (guildId, serverId, state) {
@@ -289,7 +289,7 @@ module.exports = {
             embeds: [DiscordEmbeds.getServerChangedStateEmbed(guildId, serverId, state)]
         }
 
-        await module.exports.sendMessage(guildId, content, null, instance.channelId.activity);
+        await module.exports.sendMessage(guildId, content, null, instance.channelId.teamchat);
     },
 
     sendServerWipeDetectedMessage: async function (guildId, serverId) {
@@ -302,7 +302,7 @@ module.exports = {
             content: instance.generalSettings.mapWipeNotifyEveryone ? '@everyone' : ''
         }
 
-        await module.exports.sendMessage(guildId, content, null, instance.channelId.activity);
+        await module.exports.sendMessage(guildId, content, null, instance.channelId.teamchat);
     },
 
     sendServerConnectionInvalidMessage: async function (guildId, serverId) {
@@ -312,7 +312,7 @@ module.exports = {
             embeds: [DiscordEmbeds.getServerConnectionInvalidEmbed(guildId, serverId)]
         }
 
-        await module.exports.sendMessage(guildId, content, null, instance.channelId.activity);
+        await module.exports.sendMessage(guildId, content, null, instance.channelId.teamchat);
     },
 
     sendDiscordEventMessage: async function (guildId, serverId, text, image, color) {
@@ -324,7 +324,7 @@ module.exports = {
                 Path.join(__dirname, '..', `resources/images/events/${image}`))]
         }
 
-        await module.exports.sendMessage(guildId, content, null, instance.channelId.events);
+        await module.exports.sendMessage(guildId, content, null, instance.channelId.teamchat);
     },
 
     sendActivityNotificationMessage: async function (guildId, serverId, color, text, steamId, title = null, everyone = false) {
@@ -342,7 +342,7 @@ module.exports = {
             content.content = '@everyone';
         }
 
-        await module.exports.sendMessage(guildId, content, null, instance.channelId.activity);
+        await module.exports.sendMessage(guildId, content, null, instance.channelId.teamchat);
     },
 
     sendTeamChatMessage: async function (guildId, message) {
@@ -404,7 +404,7 @@ module.exports = {
             )]
         }
 
-        await module.exports.sendMessage(rustplus.guildId, content, null, instance.channelId.activity);
+        await module.exports.sendMessage(rustplus.guildId, content, null, instance.channelId.teamchat);
     },
 
     sendHelpMessage: async function (interaction) {
@@ -482,7 +482,7 @@ module.exports = {
             content.content = '@everyone';
         }
 
-        await module.exports.sendMessage(guildId, content, null, instance.channelId.activity);
+        await module.exports.sendMessage(guildId, content, null, instance.channelId.teamchat);
     },
 
     sendItemMessage: async function (interaction, itemName, itemId, type) {

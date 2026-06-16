@@ -487,7 +487,7 @@ async function alarmRaidAlarm(client, guild, title, message, body) {
     }
 
     if (rustplus && (serverId === rustplus.serverId)) {
-        await DiscordMessages.sendMessage(guild.id, content, null, instance.channelId.activity);
+        await DiscordMessages.sendMessage(guild.id, content, null, instance.channelId.teamchat);
         rustplus.sendInGameMessage(`${title}: ${message}`);
     }
 
@@ -522,7 +522,7 @@ async function teamLogin(client, guild, title, message, body) {
     const serverId = `${body.ip}-${body.port}`;
 
     if (!rustplus || (rustplus && (serverId !== rustplus.serverId))) {
-        await DiscordMessages.sendMessage(guild.id, content, null, instance.channelId.activity);
+        await DiscordMessages.sendMessage(guild.id, content, null, instance.channelId.teamchat);
         client.log(client.intlGet(null, 'infoCap'),
             client.intlGet(null, 'playerJustConnectedTo', {
                 name: body.targetName,
@@ -530,14 +530,3 @@ async function teamLogin(client, guild, title, message, body) {
             }));
     }
 }
-
-//async function newsNews(client, guild, full, data, body) {
-//    const instance = client.getInstance(guild.id);
-//
-//    const content = {
-//        embeds: [DiscordEmbeds.getNewsEmbed(guild.id, data)],
-//        components: [DiscordButtons.getNewsButton(guild.id, body, isValidUrl(body.url))]
-//    }
-//
-//    await DiscordMessages.sendMessage(guild.id, content, null, instance.channelId.activity);
-//}
