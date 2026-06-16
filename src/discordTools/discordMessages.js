@@ -109,7 +109,7 @@ module.exports = {
         }
 
         const message = await module.exports.sendMessage(guildId, content, entity.messageId,
-            instance.channelId.switches, interaction);
+            instance.channelId.devices, interaction);
 
         if (!interaction) {
             instance.serverList[serverId].switches[entityId].messageId = message.id;
@@ -131,7 +131,7 @@ module.exports = {
         }
 
         const message = await module.exports.sendMessage(guildId, content, entity.messageId,
-            instance.channelId.alarms, interaction);
+            instance.channelId.devices, interaction);
 
         if (!interaction) {
             instance.serverList[serverId].alarms[entityId].messageId = message.id;
@@ -158,7 +158,7 @@ module.exports = {
         instance = Client.client.getInstance(guildId);
 
         const message = await module.exports.sendMessage(guildId, content, entity.messageId,
-            instance.channelId.storageMonitors, interaction);
+            instance.channelId.devices, interaction);
 
         if (!interaction) {
             instance.serverList[serverId].storageMonitors[entityId].messageId = message.id;
@@ -178,7 +178,7 @@ module.exports = {
         }
 
         const message = await module.exports.sendMessage(guildId, content, group.messageId,
-            instance.channelId.switchGroups, interaction);
+            instance.channelId.devices, interaction);
 
         if (!interaction) {
             instance.serverList[serverId].switchGroups[groupId].messageId = message.id;
@@ -196,7 +196,7 @@ module.exports = {
                 Path.join(__dirname, '..', 'resources/images/electrics/recycler.png'))]
         }
 
-        return await module.exports.sendMessage(guildId, content, null, instance.channelId.storageMonitors);
+        return await module.exports.sendMessage(guildId, content, null, instance.channelId.devices);
     },
 
     sendDecayingNotificationMessage: async function (guildId, serverId, entityId) {

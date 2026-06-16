@@ -38,10 +38,7 @@ module.exports = (client, guild) => {
                 commands: null,
                 events: null,
                 teamchat: null,
-                switches: null,
-                switchGroups: null,
-                alarms: null,
-                storageMonitors: null,
+                devices: null,
                 activity: null,
                 trackers: null
             },
@@ -114,10 +111,7 @@ module.exports = (client, guild) => {
                 commands: null,
                 events: null,
                 teamchat: null,
-                switches: null,
-                switchGroups: null,
-                alarms: null,
-                storageMonitors: null,
+                devices: null,
                 activity: null,
                 trackers: null
             }
@@ -129,10 +123,7 @@ module.exports = (client, guild) => {
             if (!instance.channelId.hasOwnProperty('commands')) instance.channelId.commands = null;
             if (!instance.channelId.hasOwnProperty('events')) instance.channelId.events = null;
             if (!instance.channelId.hasOwnProperty('teamchat')) instance.channelId.teamchat = null;
-            if (!instance.channelId.hasOwnProperty('switches')) instance.channelId.switches = null;
-            if (!instance.channelId.hasOwnProperty('switchGroups')) instance.channelId.switchGroups = null;
-            if (!instance.channelId.hasOwnProperty('alarms')) instance.channelId.alarms = null;
-            if (!instance.channelId.hasOwnProperty('storageMonitors')) instance.channelId.storageMonitors = null;
+            if (!instance.channelId.hasOwnProperty('devices')) instance.channelId.devices = null;
             if (!instance.channelId.hasOwnProperty('activity')) instance.channelId.activity = null;
             if (!instance.channelId.hasOwnProperty('trackers')) instance.channelId.trackers = null;
         }

@@ -27,11 +27,7 @@ module.exports = async (client, guild, category) => {
     await addTextChannel(client.intlGet(guild.id, 'channelNameCommands'), 'commands', client, guild, category, true);
     await addTextChannel(client.intlGet(guild.id, 'channelNameEvents'), 'events', client, guild, category);
     await addTextChannel(client.intlGet(guild.id, 'channelNameTeamchat'), 'teamchat', client, guild, category, true);
-    await addTextChannel(client.intlGet(guild.id, 'channelNameSwitches'), 'switches', client, guild, category);
-    await addTextChannel(client.intlGet(guild.id, 'channelNameSwitchGroups'), 'switchGroups', client, guild, category);
-    await addTextChannel(client.intlGet(guild.id, 'channelNameAlarms'), 'alarms', client, guild, category);
-    await addTextChannel(client.intlGet(guild.id, 'channelNameStorageMonitors'),
-        'storageMonitors', client, guild, category);
+    await addTextChannel(client.intlGet(guild.id, 'channelNameDevices'), 'devices', client, guild, category);
     await addTextChannel(client.intlGet(guild.id, 'channelNameActivity'), 'activity', client, guild, category);
     await addTextChannel(client.intlGet(guild.id, 'channelNameTrackers'), 'trackers', client, guild, category);
 };
