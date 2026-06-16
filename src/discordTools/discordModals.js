@@ -5,22 +5,55 @@ const Discord = require('discord.js');
 const Client = require('../../index.ts');
 const TextInput = require('./discordTextInputs.js');
 
-function boolSelect(customId, placeholder, currentValue) {
-    return new Discord.ActionRowBuilder().addComponents(
-        new Discord.StringSelectMenuBuilder()
-            .setCustomId(customId)
-            .setPlaceholder(placeholder)
-            .addOptions(
+const LANGUAGES = [
+    { label: 'Czech (cs)', value: 'cs' },
+    { label: 'German (de)', value: 'de' },
+    { label: 'English (en)', value: 'en' },
+    { label: 'Spanish (es)', value: 'es' },
+    { label: 'French (fr)', value: 'fr' },
+    { label: 'Italian (it)', value: 'it' },
+    { label: 'Korean (ko)', value: 'ko' },
+    { label: 'Polish (pl)', value: 'pl' },
+    { label: 'Portuguese (pt)', value: 'pt' },
+    { label: 'Russian (ru)', value: 'ru' },
+    { label: 'Swedish (sv)', value: 'sv' },
+    { label: 'Turkish (tr)', value: 'tr' },
+];
+
+function boolLabel(customId, labelText, currentValue) {
+    const select = new Discord.StringSelectMenuBuilder()
+        .setCustomId(customId)
+        .setRequired(true)
+        .addOptions(
+            new Discord.StringSelectMenuOptionBuilder()
+                .setLabel('True')
+                .setValue('true')
+                .setDefault(currentValue === true),
+            new Discord.StringSelectMenuOptionBuilder()
+                .setLabel('False')
+                .setValue('false')
+                .setDefault(currentValue === false)
+        );
+    return new Discord.LabelBuilder()
+        .setLabel(labelText)
+        .setStringSelectMenuComponent(select);
+}
+
+function languageLabel(customId, labelText, currentValue) {
+    const select = new Discord.StringSelectMenuBuilder()
+        .setCustomId(customId)
+        .setRequired(true)
+        .addOptions(
+            LANGUAGES.map(lang =>
                 new Discord.StringSelectMenuOptionBuilder()
-                    .setLabel('True')
-                    .setValue('true')
-                    .setDefault(currentValue === true),
-                new Discord.StringSelectMenuOptionBuilder()
-                    .setLabel('False')
-                    .setValue('false')
-                    .setDefault(currentValue === false)
+                    .setLabel(lang.label)
+                    .setValue(lang.value)
+                    .setDefault(lang.value === currentValue)
             )
-    );
+        );
+    return new Discord.LabelBuilder()
+        .setLabel(labelText)
+        .setStringSelectMenuComponent(select);
 }
 
 module.exports = {
@@ -366,27 +399,12 @@ module.exports = {
                 label: 'Command Delay (seconds)',
                 value: `${gs.commandDelay}`,
                 style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsLanguage',
-                label: 'Language (e.g. en)',
-                value: `${gs.language}`,
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsMuteInGameBotMessages',
-                label: 'Mute In-Game Bot Messages (true/false)',
-                value: `${gs.muteInGameBotMessages}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsInGameCommandsEnabled',
-                label: 'In-Game Commands Enabled (true/false)',
-                value: `${gs.inGameCommandsEnabled}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
             }))
+        );
+        modal.addLabelComponents(
+            languageLabel('SettingsLanguage', 'Language', gs.language),
+            boolLabel('SettingsMuteInGameBotMessages', 'Mute In-Game Bot Messages', gs.muteInGameBotMessages),
+            boolLabel('SettingsInGameCommandsEnabled', 'In-Game Commands Enabled', gs.inGameCommandsEnabled)
         );
 
         return modal;
@@ -401,42 +419,12 @@ module.exports = {
             title: 'Notification Settings'
         });
 
-        modal.addComponents(
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsConnectionNotify',
-                label: 'Connection Notify (true/false)',
-                value: `${gs.connectionNotify}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsAfkNotify',
-                label: 'AFK Notify (true/false)',
-                value: `${gs.afkNotify}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsDeathNotify',
-                label: 'Death Notify (true/false)',
-                value: `${gs.deathNotify}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsFcmAlarmNotificationEnabled',
-                label: 'FCM Alarm Notification (true/false)',
-                value: `${gs.fcmAlarmNotificationEnabled}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsFcmAlarmNotificationEveryone',
-                label: 'FCM Alarm @everyone (true/false)',
-                value: `${gs.fcmAlarmNotificationEveryone}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            }))
+        modal.addLabelComponents(
+            boolLabel('SettingsConnectionNotify', 'Connection Notify', gs.connectionNotify),
+            boolLabel('SettingsAfkNotify', 'AFK Notify', gs.afkNotify),
+            boolLabel('SettingsDeathNotify', 'Death Notify', gs.deathNotify),
+            boolLabel('SettingsFcmAlarmNotificationEnabled', 'FCM Alarm Notification', gs.fcmAlarmNotificationEnabled),
+            boolLabel('SettingsFcmAlarmNotificationEveryone', 'FCM Alarm @everyone', gs.fcmAlarmNotificationEveryone)
         );
 
         return modal;
@@ -451,42 +439,12 @@ module.exports = {
             title: 'In-Game Settings'
         });
 
-        modal.addComponents(
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsSmartAlarmNotifyInGame',
-                label: 'Smart Alarm Notify In-Game (true/false)',
-                value: `${gs.smartAlarmNotifyInGame}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsSmartSwitchNotify',
-                label: 'Smart Switch Notify In-Game (true/false)',
-                value: `${gs.smartSwitchNotifyInGameWhenChangedFromDiscord}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsLeaderCommandEnabled',
-                label: 'Leader Command Enabled (true/false)',
-                value: `${gs.leaderCommandEnabled}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsLeaderCommandOnlyForPaired',
-                label: 'Leader Command Only Paired (true/false)',
-                value: `${gs.leaderCommandOnlyForPaired}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsVendingMachineNotify',
-                label: 'Vending Machine Notify In-Game (true/false)',
-                value: `${gs.itemAvailableInVendingMachineNotifyInGame}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            }))
+        modal.addLabelComponents(
+            boolLabel('SettingsSmartAlarmNotifyInGame', 'Smart Alarm Notify In-Game', gs.smartAlarmNotifyInGame),
+            boolLabel('SettingsSmartSwitchNotify', 'Smart Switch Notify In-Game', gs.smartSwitchNotifyInGameWhenChangedFromDiscord),
+            boolLabel('SettingsLeaderCommandEnabled', 'Leader Command Enabled', gs.leaderCommandEnabled),
+            boolLabel('SettingsLeaderCommandOnlyForPaired', 'Leader Command Only Paired', gs.leaderCommandOnlyForPaired),
+            boolLabel('SettingsVendingMachineNotify', 'Vending Machine Notify In-Game', gs.itemAvailableInVendingMachineNotifyInGame)
         );
 
         return modal;
@@ -501,42 +459,12 @@ module.exports = {
             title: 'Battlemetrics Settings'
         });
 
-        modal.addComponents(
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsBmServerNameChanges',
-                label: 'Server Name Changes (true/false)',
-                value: `${gs.battlemetricsServerNameChanges}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsBmTrackerNameChanges',
-                label: 'Tracker Name Changes (true/false)',
-                value: `${gs.battlemetricsTrackerNameChanges}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsBmGlobalNameChanges',
-                label: 'Global Name Changes (true/false)',
-                value: `${gs.battlemetricsGlobalNameChanges}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsBmGlobalLogin',
-                label: 'Global Login Notify (true/false)',
-                value: `${gs.battlemetricsGlobalLogin}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            })),
-            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
-                customId: 'SettingsBmGlobalLogout',
-                label: 'Global Logout Notify (true/false)',
-                value: `${gs.battlemetricsGlobalLogout}`,
-                placeholder: 'true or false',
-                style: Discord.TextInputStyle.Short
-            }))
+        modal.addLabelComponents(
+            boolLabel('SettingsBmServerNameChanges', 'Server Name Changes', gs.battlemetricsServerNameChanges),
+            boolLabel('SettingsBmTrackerNameChanges', 'Tracker Name Changes', gs.battlemetricsTrackerNameChanges),
+            boolLabel('SettingsBmGlobalNameChanges', 'Global Name Changes', gs.battlemetricsGlobalNameChanges),
+            boolLabel('SettingsBmGlobalLogin', 'Global Login Notify', gs.battlemetricsGlobalLogin),
+            boolLabel('SettingsBmGlobalLogout', 'Global Logout Notify', gs.battlemetricsGlobalLogout)
         );
 
         return modal;

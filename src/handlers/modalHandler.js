@@ -369,8 +369,8 @@ module.exports = async (client, interaction) => {
     else if (interaction.customId === 'SettingsGeneral') {
         const prefix = interaction.fields.getTextInputValue('SettingsPrefix');
         const commandDelay = parseInt(interaction.fields.getTextInputValue('SettingsCommandDelay'));
-        const language = interaction.fields.getTextInputValue('SettingsLanguage');
-        const boolVal = id => interaction.fields.getTextInputValue(id).toLowerCase() === 'true';
+        const language = interaction.fields.getStringSelectValues('SettingsLanguage')[0];
+        const boolVal = id => interaction.fields.getStringSelectValues(id)[0] === 'true';
 
         if (prefix) instance.generalSettings.prefix = prefix;
         if (!isNaN(commandDelay) && commandDelay >= 0) instance.generalSettings.commandDelay = commandDelay;
@@ -388,7 +388,7 @@ module.exports = async (client, interaction) => {
         }));
     }
     else if (interaction.customId === 'SettingsNotifications') {
-        const boolVal = id => interaction.fields.getTextInputValue(id).toLowerCase() === 'true';
+        const boolVal = id => interaction.fields.getStringSelectValues(id)[0] === 'true';
         instance.generalSettings.connectionNotify = boolVal('SettingsConnectionNotify');
         instance.generalSettings.afkNotify = boolVal('SettingsAfkNotify');
         instance.generalSettings.deathNotify = boolVal('SettingsDeathNotify');
@@ -406,7 +406,7 @@ module.exports = async (client, interaction) => {
         }));
     }
     else if (interaction.customId === 'SettingsInGame') {
-        const boolVal = id => interaction.fields.getTextInputValue(id).toLowerCase() === 'true';
+        const boolVal = id => interaction.fields.getStringSelectValues(id)[0] === 'true';
         instance.generalSettings.smartAlarmNotifyInGame = boolVal('SettingsSmartAlarmNotifyInGame');
         instance.generalSettings.smartSwitchNotifyInGameWhenChangedFromDiscord = boolVal('SettingsSmartSwitchNotify');
         instance.generalSettings.leaderCommandEnabled = boolVal('SettingsLeaderCommandEnabled');
@@ -424,7 +424,7 @@ module.exports = async (client, interaction) => {
         }));
     }
     else if (interaction.customId === 'SettingsBattlemetrics') {
-        const boolVal = id => interaction.fields.getTextInputValue(id).toLowerCase() === 'true';
+        const boolVal = id => interaction.fields.getStringSelectValues(id)[0] === 'true';
         instance.generalSettings.battlemetricsServerNameChanges = boolVal('SettingsBmServerNameChanges');
         instance.generalSettings.battlemetricsTrackerNameChanges = boolVal('SettingsBmTrackerNameChanges');
         instance.generalSettings.battlemetricsGlobalNameChanges = boolVal('SettingsBmGlobalNameChanges');
