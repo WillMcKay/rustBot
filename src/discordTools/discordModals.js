@@ -373,8 +373,20 @@ module.exports = {
                 value: `${gs.language}`,
                 style: Discord.TextInputStyle.Short
             })),
-            boolSelect('SettingsMuteInGameBotMessages', 'Mute In-Game Bot Messages', gs.muteInGameBotMessages),
-            boolSelect('SettingsInGameCommandsEnabled', 'In-Game Commands Enabled', gs.inGameCommandsEnabled)
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsMuteInGameBotMessages',
+                label: 'Mute In-Game Bot Messages (true/false)',
+                value: `${gs.muteInGameBotMessages}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsInGameCommandsEnabled',
+                label: 'In-Game Commands Enabled (true/false)',
+                value: `${gs.inGameCommandsEnabled}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            }))
         );
 
         return modal;
@@ -390,11 +402,41 @@ module.exports = {
         });
 
         modal.addComponents(
-            boolSelect('SettingsConnectionNotify', 'Connection Notify', gs.connectionNotify),
-            boolSelect('SettingsAfkNotify', 'AFK Notify', gs.afkNotify),
-            boolSelect('SettingsDeathNotify', 'Death Notify', gs.deathNotify),
-            boolSelect('SettingsFcmAlarmNotificationEnabled', 'FCM Alarm Notification', gs.fcmAlarmNotificationEnabled),
-            boolSelect('SettingsFcmAlarmNotificationEveryone', 'FCM Alarm @everyone', gs.fcmAlarmNotificationEveryone)
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsConnectionNotify',
+                label: 'Connection Notify (true/false)',
+                value: `${gs.connectionNotify}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsAfkNotify',
+                label: 'AFK Notify (true/false)',
+                value: `${gs.afkNotify}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsDeathNotify',
+                label: 'Death Notify (true/false)',
+                value: `${gs.deathNotify}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsFcmAlarmNotificationEnabled',
+                label: 'FCM Alarm Notification (true/false)',
+                value: `${gs.fcmAlarmNotificationEnabled}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsFcmAlarmNotificationEveryone',
+                label: 'FCM Alarm @everyone (true/false)',
+                value: `${gs.fcmAlarmNotificationEveryone}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            }))
         );
 
         return modal;
