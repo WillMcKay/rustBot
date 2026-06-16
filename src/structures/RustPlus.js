@@ -827,6 +827,30 @@ class RustPlus extends RustPlusLib {
         return strings;
     }
 
+    getCommandDeepsea() {
+        const mapMarkers = this.mapMarkers;
+
+        if (mapMarkers.isDeepSeaActive) {
+            const activeSeconds = (new Date() - mapMarkers.dateDeepSeaSpawned) / 1000;
+            let despawnSeconds = 0;
+            if (mapMarkers.deepSeaActiveTimer !== null) {
+                despawnSeconds = mapMarkers.deepSeaActiveTimer.getTimeLeft() / 1000;
+            }
+            return Client.client.intlGet(this.guildId, 'deepSeaIsActiveFor', {
+                time1: Timer.secondsToFullScale(activeSeconds),
+                time2: Timer.secondsToFullScale(despawnSeconds)
+            });
+        }
+        else if (mapMarkers.dateDeepSeaDespawned !== null) {
+            const sinceSeconds = (new Date() - mapMarkers.dateDeepSeaDespawned) / 1000;
+            return Client.client.intlGet(this.guildId, 'deepSeaTimeSinceDespawned', {
+                time: Timer.secondsToFullScale(sinceSeconds)
+            });
+        }
+
+        return Client.client.intlGet(this.guildId, 'deepSeaNotOnMap');
+    }
+
     getCommandConnection(command) {
         const prefix = this.generalSettings.prefix;
         const commandConnection = `${prefix}${Client.client.intlGet(this.guildId, 'commandSyntaxConnection')}`;

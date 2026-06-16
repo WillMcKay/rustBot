@@ -55,6 +55,7 @@ class MapMarkers {
         this.crateSmallOilRigLocation = null;
         this.crateLargeOilRigTimer = null;
         this.crateLargeOilRigLocation = null;
+        this.deepSeaActiveTimer = null;
 
         /* Event dates */
         this.timeSinceCargoShipWasOut = null;
@@ -64,12 +65,15 @@ class MapMarkers {
         this.timeSincePatrolHelicopterWasOnMap = null;
         this.timeSincePatrolHelicopterWasDestroyed = null;
         this.timeSinceTravelingVendorWasOnMap = null;
+        this.dateDeepSeaSpawned = null;
+        this.dateDeepSeaDespawned = null;
 
         /* Event location */
         this.patrolHelicopterDestroyedLocation = null;
 
         /* Vending Machine variables */
         this.knownVendingMachines = [];
+        this.isDeepSeaActive = false;
 
         this.updateMapMarkers(mapMarkers);
     }
@@ -264,6 +268,7 @@ class MapMarkers {
         this.updateVendingMachines(mapMarkers);
         this.updateGenericRadiuses(mapMarkers);
         this.updateTravelingVendors(mapMarkers);
+        this.updateDeepSea();
     }
 
     updatePlayers(mapMarkers) {
@@ -311,7 +316,9 @@ class MapMarkers {
             marker.location = pos;
 
             if (!this.rustplus.isFirstPoll) {
-                if (!this.knownVendingMachines.some(e => e.x === marker.x && e.y === marker.y)) {
+                /* Deep Sea vending machines spawn outside the grid system - don't treat them as new shops. */
+                const isDeepSea = Map.isOutsideGridSystem(marker.x, marker.y, mapSize, 4 * Map.gridDiameter);
+                if (!isDeepSea && !this.knownVendingMachines.some(e => e.x === marker.x && e.y === marker.y)) {
                     this.rustplus.sendEvent(
                         this.rustplus.notificationSettings.vendingMachineDetectedSetting,
                         this.client.intlGet(this.rustplus.guildId, 'newVendingMachine', { location: pos.string }),
@@ -783,6 +790,53 @@ class MapMarkers {
 
 
 
+    updateDeepSea() {
+        let mapSize = this.rustplus.info.correctedMapSize;
+        if (mapSize === null || mapSize === undefined) return;
+
+        /* Deep Sea is signalled by vending machines spawning outside the grid system (in the ocean). */
+        let offset = 4 * Map.gridDiameter;
+        let deepSeaVendingMachines = this.vendingMachines.filter(e =>
+            Map.isOutsideGridSystem(e.x, e.y, mapSize, offset));
+
+        if (deepSeaVendingMachines.length > 0 && !this.isDeepSeaActive) {
+            this.isDeepSeaActive = true;
+            this.dateDeepSeaSpawned = new Date();
+            this.dateDeepSeaDespawned = null;
+
+            this.deepSeaActiveTimer = new Timer.timer(
+                this.notifyDeepSeaDespawning.bind(this),
+                Constants.DEFAULT_DEEP_SEA_DURATION_TIME_MS);
+            this.deepSeaActiveTimer.start();
+
+            this.rustplus.sendEvent(
+                this.rustplus.notificationSettings.deepSeaDetectedSetting,
+                this.client.intlGet(this.rustplus.guildId, 'deepSeaDetected'),
+                null,
+                Constants.COLOR_DEEP_SEA_DETECTED,
+                this.rustplus.isFirstPoll);
+        }
+        else if (deepSeaVendingMachines.length === 0 && this.isDeepSeaActive) {
+            this.isDeepSeaActive = false;
+            this.dateDeepSeaSpawned = null;
+            this.dateDeepSeaDespawned = new Date();
+
+            if (this.deepSeaActiveTimer) {
+                this.deepSeaActiveTimer.stop();
+                this.deepSeaActiveTimer = null;
+            }
+
+            this.rustplus.sendEvent(
+                this.rustplus.notificationSettings.deepSeaLeftSetting,
+                this.client.intlGet(this.rustplus.guildId, 'deepSeaLeft'),
+                null,
+                Constants.COLOR_DEEP_SEA_LEFT,
+                this.rustplus.isFirstPoll);
+        }
+    }
+
+
+
     /* Timer notification functions */
 
     notifyCargoShipEgress(args) {
@@ -839,6 +893,14 @@ class MapMarkers {
         this.crateLargeOilRigTimer.stop();
         this.crateLargeOilRigTimer = null;
         this.crateLargeOilRigLocation = null;
+    }
+
+    notifyDeepSeaDespawning() {
+        /* Just clear the timer, despawn is detected when the vending machines disappear. */
+        if (this.deepSeaActiveTimer) {
+            this.deepSeaActiveTimer.stop();
+            this.deepSeaActiveTimer = null;
+        }
     }
 
     /* Help functions */
