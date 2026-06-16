@@ -326,4 +326,184 @@ module.exports = {
 
         return modal;
     },
+
+    getSettingsGeneralModal(guildId) {
+        const instance = Client.client.getInstance(guildId);
+        const gs = instance.generalSettings;
+
+        const modal = module.exports.getModal({
+            customId: 'SettingsGeneral',
+            title: 'General Settings'
+        });
+
+        modal.addComponents(
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsPrefix',
+                label: 'Command Prefix',
+                value: `${gs.prefix}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsCommandDelay',
+                label: 'Command Delay (seconds)',
+                value: `${gs.commandDelay}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsLanguage',
+                label: 'Language (e.g. en)',
+                value: `${gs.language}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsMuteInGameBotMessages',
+                label: 'Mute In-Game Bot Messages (true/false)',
+                value: `${gs.muteInGameBotMessages}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsInGameCommandsEnabled',
+                label: 'In-Game Commands Enabled (true/false)',
+                value: `${gs.inGameCommandsEnabled}`,
+                style: Discord.TextInputStyle.Short
+            }))
+        );
+
+        return modal;
+    },
+
+    getSettingsNotificationsModal(guildId) {
+        const instance = Client.client.getInstance(guildId);
+        const gs = instance.generalSettings;
+
+        const modal = module.exports.getModal({
+            customId: 'SettingsNotifications',
+            title: 'Notification Settings'
+        });
+
+        modal.addComponents(
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsConnectionNotify',
+                label: 'Connection Notify (true/false)',
+                value: `${gs.connectionNotify}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsAfkNotify',
+                label: 'AFK Notify (true/false)',
+                value: `${gs.afkNotify}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsDeathNotify',
+                label: 'Death Notify (true/false)',
+                value: `${gs.deathNotify}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsFcmAlarmNotificationEnabled',
+                label: 'FCM Alarm Notification (true/false)',
+                value: `${gs.fcmAlarmNotificationEnabled}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsFcmAlarmNotificationEveryone',
+                label: 'FCM Alarm @everyone (true/false)',
+                value: `${gs.fcmAlarmNotificationEveryone}`,
+                style: Discord.TextInputStyle.Short
+            }))
+        );
+
+        return modal;
+    },
+
+    getSettingsInGameModal(guildId) {
+        const instance = Client.client.getInstance(guildId);
+        const gs = instance.generalSettings;
+
+        const modal = module.exports.getModal({
+            customId: 'SettingsInGame',
+            title: 'In-Game Settings'
+        });
+
+        modal.addComponents(
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsSmartAlarmNotifyInGame',
+                label: 'Smart Alarm Notify In-Game (true/false)',
+                value: `${gs.smartAlarmNotifyInGame}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsSmartSwitchNotify',
+                label: 'Smart Switch Notify In-Game (true/false)',
+                value: `${gs.smartSwitchNotifyInGameWhenChangedFromDiscord}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsLeaderCommandEnabled',
+                label: 'Leader Command Enabled (true/false)',
+                value: `${gs.leaderCommandEnabled}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsLeaderCommandOnlyForPaired',
+                label: 'Leader Command Only Paired (true/false)',
+                value: `${gs.leaderCommandOnlyForPaired}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsVendingMachineNotify',
+                label: 'Vending Machine Notify In-Game (true/false)',
+                value: `${gs.itemAvailableInVendingMachineNotifyInGame}`,
+                style: Discord.TextInputStyle.Short
+            }))
+        );
+
+        return modal;
+    },
+
+    getSettingsBattlemetricsModal(guildId) {
+        const instance = Client.client.getInstance(guildId);
+        const gs = instance.generalSettings;
+
+        const modal = module.exports.getModal({
+            customId: 'SettingsBattlemetrics',
+            title: 'Battlemetrics Settings'
+        });
+
+        modal.addComponents(
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsBmServerNameChanges',
+                label: 'Server Name Changes (true/false)',
+                value: `${gs.battlemetricsServerNameChanges}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsBmTrackerNameChanges',
+                label: 'Tracker Name Changes (true/false)',
+                value: `${gs.battlemetricsTrackerNameChanges}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsBmGlobalNameChanges',
+                label: 'Global Name Changes (true/false)',
+                value: `${gs.battlemetricsGlobalNameChanges}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsBmGlobalLogin',
+                label: 'Global Login Notify (true/false)',
+                value: `${gs.battlemetricsGlobalLogin}`,
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsBmGlobalLogout',
+                label: 'Global Logout Notify (true/false)',
+                value: `${gs.battlemetricsGlobalLogout}`,
+                style: Discord.TextInputStyle.Short
+            }))
+        );
+
+        return modal;
+    },
 }

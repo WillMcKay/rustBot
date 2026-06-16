@@ -366,6 +366,97 @@ module.exports = async (client, interaction) => {
             value: `${id}`
         }));
     }
+    else if (interaction.customId === 'SettingsGeneral') {
+        const prefix = interaction.fields.getTextInputValue('SettingsPrefix');
+        const commandDelay = parseInt(interaction.fields.getTextInputValue('SettingsCommandDelay'));
+        const language = interaction.fields.getTextInputValue('SettingsLanguage');
+        const toBool = val => val.toLowerCase().trim() === 'true';
+
+        if (prefix) instance.generalSettings.prefix = prefix;
+        if (!isNaN(commandDelay) && commandDelay >= 0) instance.generalSettings.commandDelay = commandDelay;
+        if (language) instance.generalSettings.language = language;
+        instance.generalSettings.muteInGameBotMessages =
+            toBool(interaction.fields.getTextInputValue('SettingsMuteInGameBotMessages'));
+        instance.generalSettings.inGameCommandsEnabled =
+            toBool(interaction.fields.getTextInputValue('SettingsInGameCommandsEnabled'));
+
+        client.setInstance(guildId, instance);
+        const rpGeneral = client.rustplusInstances[guildId];
+        if (rpGeneral) rpGeneral.generalSettings = instance.generalSettings;
+
+        client.log(client.intlGet(null, 'infoCap'), client.intlGet(null, 'modalValueChange', {
+            id: `${verifyId}`,
+            value: `prefix=${prefix}, commandDelay=${commandDelay}, language=${language}`
+        }));
+    }
+    else if (interaction.customId === 'SettingsNotifications') {
+        const toBool = val => val.toLowerCase().trim() === 'true';
+        instance.generalSettings.connectionNotify =
+            toBool(interaction.fields.getTextInputValue('SettingsConnectionNotify'));
+        instance.generalSettings.afkNotify =
+            toBool(interaction.fields.getTextInputValue('SettingsAfkNotify'));
+        instance.generalSettings.deathNotify =
+            toBool(interaction.fields.getTextInputValue('SettingsDeathNotify'));
+        instance.generalSettings.fcmAlarmNotificationEnabled =
+            toBool(interaction.fields.getTextInputValue('SettingsFcmAlarmNotificationEnabled'));
+        instance.generalSettings.fcmAlarmNotificationEveryone =
+            toBool(interaction.fields.getTextInputValue('SettingsFcmAlarmNotificationEveryone'));
+
+        client.setInstance(guildId, instance);
+        const rpNotif = client.rustplusInstances[guildId];
+        if (rpNotif) rpNotif.generalSettings = instance.generalSettings;
+
+        client.log(client.intlGet(null, 'infoCap'), client.intlGet(null, 'modalValueChange', {
+            id: `${verifyId}`,
+            value: `connectionNotify=${instance.generalSettings.connectionNotify}, ` +
+                `afkNotify=${instance.generalSettings.afkNotify}`
+        }));
+    }
+    else if (interaction.customId === 'SettingsInGame') {
+        const toBool = val => val.toLowerCase().trim() === 'true';
+        instance.generalSettings.smartAlarmNotifyInGame =
+            toBool(interaction.fields.getTextInputValue('SettingsSmartAlarmNotifyInGame'));
+        instance.generalSettings.smartSwitchNotifyInGameWhenChangedFromDiscord =
+            toBool(interaction.fields.getTextInputValue('SettingsSmartSwitchNotify'));
+        instance.generalSettings.leaderCommandEnabled =
+            toBool(interaction.fields.getTextInputValue('SettingsLeaderCommandEnabled'));
+        instance.generalSettings.leaderCommandOnlyForPaired =
+            toBool(interaction.fields.getTextInputValue('SettingsLeaderCommandOnlyForPaired'));
+        instance.generalSettings.itemAvailableInVendingMachineNotifyInGame =
+            toBool(interaction.fields.getTextInputValue('SettingsVendingMachineNotify'));
+
+        client.setInstance(guildId, instance);
+        const rpInGame = client.rustplusInstances[guildId];
+        if (rpInGame) rpInGame.generalSettings = instance.generalSettings;
+
+        client.log(client.intlGet(null, 'infoCap'), client.intlGet(null, 'modalValueChange', {
+            id: `${verifyId}`,
+            value: `smartAlarmNotifyInGame=${instance.generalSettings.smartAlarmNotifyInGame}, ` +
+                `leaderCommandEnabled=${instance.generalSettings.leaderCommandEnabled}`
+        }));
+    }
+    else if (interaction.customId === 'SettingsBattlemetrics') {
+        const toBool = val => val.toLowerCase().trim() === 'true';
+        instance.generalSettings.battlemetricsServerNameChanges =
+            toBool(interaction.fields.getTextInputValue('SettingsBmServerNameChanges'));
+        instance.generalSettings.battlemetricsTrackerNameChanges =
+            toBool(interaction.fields.getTextInputValue('SettingsBmTrackerNameChanges'));
+        instance.generalSettings.battlemetricsGlobalNameChanges =
+            toBool(interaction.fields.getTextInputValue('SettingsBmGlobalNameChanges'));
+        instance.generalSettings.battlemetricsGlobalLogin =
+            toBool(interaction.fields.getTextInputValue('SettingsBmGlobalLogin'));
+        instance.generalSettings.battlemetricsGlobalLogout =
+            toBool(interaction.fields.getTextInputValue('SettingsBmGlobalLogout'));
+
+        client.setInstance(guildId, instance);
+        const rpBm = client.rustplusInstances[guildId];
+        if (rpBm) rpBm.generalSettings = instance.generalSettings;
+
+        client.log(client.intlGet(null, 'infoCap'), client.intlGet(null, 'modalValueChange', {
+            id: `${verifyId}`,
+            value: `bmServerNameChanges=${instance.generalSettings.battlemetricsServerNameChanges}`
+        }));
+    }
 
     client.log(client.intlGet(null, 'infoCap'), client.intlGet(null, 'userModalInteractionSuccess', {
         id: `${verifyId}`
