@@ -452,11 +452,41 @@ module.exports = {
         });
 
         modal.addComponents(
-            boolSelect('SettingsSmartAlarmNotifyInGame', 'Smart Alarm Notify In-Game', gs.smartAlarmNotifyInGame),
-            boolSelect('SettingsSmartSwitchNotify', 'Smart Switch Notify In-Game', gs.smartSwitchNotifyInGameWhenChangedFromDiscord),
-            boolSelect('SettingsLeaderCommandEnabled', 'Leader Command Enabled', gs.leaderCommandEnabled),
-            boolSelect('SettingsLeaderCommandOnlyForPaired', 'Leader Command Only Paired', gs.leaderCommandOnlyForPaired),
-            boolSelect('SettingsVendingMachineNotify', 'Vending Machine Notify In-Game', gs.itemAvailableInVendingMachineNotifyInGame)
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsSmartAlarmNotifyInGame',
+                label: 'Smart Alarm Notify In-Game (true/false)',
+                value: `${gs.smartAlarmNotifyInGame}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsSmartSwitchNotify',
+                label: 'Smart Switch Notify In-Game (true/false)',
+                value: `${gs.smartSwitchNotifyInGameWhenChangedFromDiscord}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsLeaderCommandEnabled',
+                label: 'Leader Command Enabled (true/false)',
+                value: `${gs.leaderCommandEnabled}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsLeaderCommandOnlyForPaired',
+                label: 'Leader Command Only Paired (true/false)',
+                value: `${gs.leaderCommandOnlyForPaired}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsVendingMachineNotify',
+                label: 'Vending Machine Notify In-Game (true/false)',
+                value: `${gs.itemAvailableInVendingMachineNotifyInGame}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            }))
         );
 
         return modal;
@@ -472,11 +502,41 @@ module.exports = {
         });
 
         modal.addComponents(
-            boolSelect('SettingsBmServerNameChanges', 'Server Name Changes', gs.battlemetricsServerNameChanges),
-            boolSelect('SettingsBmTrackerNameChanges', 'Tracker Name Changes', gs.battlemetricsTrackerNameChanges),
-            boolSelect('SettingsBmGlobalNameChanges', 'Global Name Changes', gs.battlemetricsGlobalNameChanges),
-            boolSelect('SettingsBmGlobalLogin', 'Global Login Notify', gs.battlemetricsGlobalLogin),
-            boolSelect('SettingsBmGlobalLogout', 'Global Logout Notify', gs.battlemetricsGlobalLogout)
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsBmServerNameChanges',
+                label: 'Server Name Changes (true/false)',
+                value: `${gs.battlemetricsServerNameChanges}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsBmTrackerNameChanges',
+                label: 'Tracker Name Changes (true/false)',
+                value: `${gs.battlemetricsTrackerNameChanges}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsBmGlobalNameChanges',
+                label: 'Global Name Changes (true/false)',
+                value: `${gs.battlemetricsGlobalNameChanges}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsBmGlobalLogin',
+                label: 'Global Login Notify (true/false)',
+                value: `${gs.battlemetricsGlobalLogin}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            })),
+            new Discord.ActionRowBuilder().addComponents(TextInput.getTextInput({
+                customId: 'SettingsBmGlobalLogout',
+                label: 'Global Logout Notify (true/false)',
+                value: `${gs.battlemetricsGlobalLogout}`,
+                placeholder: 'true or false',
+                style: Discord.TextInputStyle.Short
+            }))
         );
 
         return modal;
