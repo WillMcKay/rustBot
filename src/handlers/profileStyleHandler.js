@@ -16,7 +16,7 @@ async function applyDisplayNameStyle(client){
 
     for (const guildId of guilds) {
         try {
-            await client.rest.patch(`/guilds/${guildId}/member/@me`, { body });
+            await client.rest.patch(`/guilds/${guildId}/members/@me`, { body });
         }
         catch (error) {
             console.error(`Error occurred while updating display name style for guild ${guildId}:`, error);
