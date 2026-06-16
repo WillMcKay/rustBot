@@ -29,7 +29,7 @@
     "dependencies": {
         "@discordjs/rest": "^2.6.1",
         "@discordjs/voice": "^0.19.2",
-        "@formatjs/intl": "^4.1.10",
+        "@formatjs/intl": "^3.1.8",
         "@liamcottle/push-receiver": "github:Trophy198/push-receiver#412172c3e9b942e0b9569a169e27bce26bfaac0a",
         "@napi-rs/canvas": "^1.0.0",
         "@types/lodash": "^4.17.24",
