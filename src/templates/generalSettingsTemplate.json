@@ -3,7 +3,6 @@
     "voiceGender": "male",
     "prefix": "!",
     "muteInGameBotMessages": false,
-    "trademark": "rustplusplus",
     "inGameCommandsEnabled": true,
     "fcmAlarmNotificationEnabled": false,
     "fcmAlarmNotificationEveryone": false,

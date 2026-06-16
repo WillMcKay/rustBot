@@ -78,25 +78,6 @@ module.exports = async (client, interaction) => {
             components: [DiscordSelectMenus.getPrefixSelectMenu(guildId, interaction.values[0])]
         });
     }
-    else if (interaction.customId === 'Trademark') {
-        instance.generalSettings.trademark = interaction.values[0];
-        client.setInstance(guildId, instance);
-
-        if (rustplus) {
-            rustplus.generalSettings.trademark = interaction.values[0];
-            rustplus.trademarkString = (instance.generalSettings.trademark === 'NOT SHOWING') ?
-                '' : `${instance.generalSettings.trademark} | `;
-        }
-
-        client.log(client.intlGet(null, 'infoCap'), client.intlGet(null, 'selectMenuValueChange', {
-            id: `${verifyId}`,
-            value: `${instance.generalSettings.trademark}`
-        }));
-
-        await client.interactionUpdate(interaction, {
-            components: [DiscordSelectMenus.getTrademarkSelectMenu(guildId, interaction.values[0])]
-        });
-    }
     else if (interaction.customId === 'CommandDelay') {
         instance.generalSettings.commandDelay = interaction.values[0];
         client.setInstance(guildId, instance);
