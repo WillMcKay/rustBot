@@ -42,10 +42,12 @@ module.exports = {
             return;
         }
 
-        if (message.channelId === instance.channelId.commands) {
-            await DiscordCommandHandler.discordCommandHandler(rustplus, client, message);
-        }
-        else if (message.channelId === instance.channelId.teamchat) {
+        if (message.channelId === instance.channelId.teamchat) {
+            if (message.cleanContent.startsWith(rustplus.generalSettings.prefix)) {
+                await DiscordCommandHandler.discordCommandHandler(rustplus, client, message);
+                return;
+            }
+
             const guild = DiscordTools.getGuild(message.guild.id);
             const channel = DiscordTools.getTextChannelById(guild.id, message.channelId);
             client.log(client.intlGet(null, 'infoCap'), client.intlGet(null, `logDiscordMessage`, {

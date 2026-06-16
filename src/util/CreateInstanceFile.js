@@ -35,7 +35,6 @@ module.exports = (client, guild) => {
                 category: null,
                 servers: null,
                 settings: null,
-                commands: null,
                 teamchat: null,
                 devices: null,
                 trackers: null
@@ -106,7 +105,6 @@ module.exports = (client, guild) => {
                 category: null,
                 servers: null,
                 settings: null,
-                commands: null,
                 teamchat: null,
                 devices: null,
                 trackers: null
@@ -116,7 +114,6 @@ module.exports = (client, guild) => {
             if (!instance.channelId.hasOwnProperty('category')) instance.channelId.category = null;
             if (!instance.channelId.hasOwnProperty('servers')) instance.channelId.servers = null;
             if (!instance.channelId.hasOwnProperty('settings')) instance.channelId.settings = null;
-            if (!instance.channelId.hasOwnProperty('commands')) instance.channelId.commands = null;
             if (!instance.channelId.hasOwnProperty('teamchat')) instance.channelId.teamchat = null;
             if (!instance.channelId.hasOwnProperty('devices')) instance.channelId.devices = null;
             if (!instance.channelId.hasOwnProperty('trackers')) instance.channelId.trackers = null;
