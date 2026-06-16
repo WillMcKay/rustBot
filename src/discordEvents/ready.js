@@ -4,12 +4,19 @@ const Discord = require('discord.js');
 const Path = require('path');
 
 const BattlemetricsHandler = require('../handlers/battlemetricsHandler.js');
+const ProfileStyleHandler = require('../handlers/profileStyleHandler.js');
 const Config = require('../../config');
 
 module.exports = {
     name: 'ready',
     once: true,
     async execute(client) {
+        setImmediate(() => {
+           ProfileStyleHandler.applyDisplayNameStyle(client).catch(error => {
+                console.error('Error applying display name style:', error);
+            });
+        });
+
         for (const guild of client.guilds.cache) {
             require('../util/CreateInstanceFile')(client, guild[1]);
             require('../util/CreateCredentialsFile')(client, guild[1]);
