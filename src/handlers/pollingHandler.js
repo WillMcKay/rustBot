@@ -19,7 +19,6 @@
 */
 
 const Info = require('../structures/Info');
-const InformationHandler = require('../handlers/informationHandler.js');
 const MapMarkers = require('../structures/MapMarkers.js');
 const SmartAlarmHandler = require('../handlers/smartAlarmHandler.js');
 const SmartSwitchHandler = require('../handlers/smartSwitchHandler.js');
@@ -65,7 +64,6 @@ module.exports = {
         rustplus.info.updateInfo(info.info);
         rustplus.mapMarkers.updateMapMarkers(mapMarkers.mapMarkers);
 
-        await InformationHandler.handler(rustplus);
         await StorageMonitorHandler.handler(rustplus, client);
         await SmartAlarmHandler.handler(rustplus, client);
     },

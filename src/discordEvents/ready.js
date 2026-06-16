@@ -47,10 +47,17 @@ module.exports = {
         }
 
         try {
-            await client.user.setAvatar(Path.join(__dirname, '..', 'resources/images/rustplusplus_logo.png'));
+            await client.user.setAvatar(Path.join(__dirname, '..', 'resources/images/logo.png'));
         }
         catch (e) {
             client.log(client.intlGet(null, 'warningCap'), client.intlGet(null, 'ignoreSetAvatar'));
+        }
+
+        try {
+            await client.user.setBanner(Path.join(__dirname, '..', 'resources/images/banner.png'));
+        }
+        catch (e) {
+            client.log(client.intlGet(null, 'warningCap'), client.intlGet(null, 'ignoreSetBanner'));
         }
 
         client.user.setPresence({

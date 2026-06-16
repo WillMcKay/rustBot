@@ -22,7 +22,6 @@ const Builder = require('@discordjs/builders');
 
 const Config = require('../../config');
 const DiscordEmbeds = require('../discordTools/discordEmbeds.js');
-const DiscordMessages = require('../discordTools/discordMessages.js');
 const DiscordTools = require('../discordTools/discordTools.js');
 const PermissionHandler = require('../handlers/permissionHandler.js');
 
@@ -36,9 +35,6 @@ module.exports = {
 			.addSubcommand(subcommand => subcommand
 				.setName('discord')
 				.setDescription(client.intlGet(guildId, 'commandsResetDesc')))
-			.addSubcommand(subcommand => subcommand
-				.setName('information')
-				.setDescription(client.intlGet(guildId, 'commandsResetInformationDesc')))
 			.addSubcommand(subcommand => subcommand
 				.setName('servers')
 				.setDescription(client.intlGet(guildId, 'commandsResetServersDesc')))
@@ -92,16 +88,11 @@ module.exports = {
 					/* Ignore */
 				}
 
-				await DiscordTools.clearTextChannel(guild.id, instance.channelId.information, 100);
 				await DiscordTools.clearTextChannel(guild.id, instance.channelId.switches, 100);
 				await DiscordTools.clearTextChannel(guild.id, instance.channelId.switchGroups, 100);
 				await DiscordTools.clearTextChannel(guild.id, instance.channelId.storageMonitors, 100);
 
 				const rustplus = client.rustplusInstances[guild.id];
-				if (rustplus && rustplus.isOperational) {
-					await rustplus.map.writeMap(false, true);
-					await DiscordMessages.sendUpdateMapInformationMessage(rustplus);
-				}
 
 				await require('../discordTools/SetupServerList')(client, guild);
 				await require('../discordTools/SetupSettingsMenu')(client, guild, true);
@@ -120,21 +111,6 @@ module.exports = {
 				client.log(client.intlGet(null, 'infoCap'), client.intlGet(null, 'slashCommandValueChange', {
 					id: `${verifyId}`,
 					value: `discord`
-				}));
-			} break;
-
-			case 'information': {
-				await DiscordTools.clearTextChannel(guild.id, instance.channelId.information, 100);
-
-				const rustplus = client.rustplusInstances[guild.id];
-				if (rustplus && rustplus.isOperational) {
-					await rustplus.map.writeMap(false, true);
-					await DiscordMessages.sendUpdateMapInformationMessage(rustplus);
-				}
-
-				client.log(client.intlGet(null, 'infoCap'), client.intlGet(null, 'slashCommandValueChange', {
-					id: `${verifyId}`,
-					value: `information`
 				}));
 			} break;
 

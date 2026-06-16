@@ -20,7 +20,6 @@
 
 const Constants = require('../util/constants.js');
 const DiscordMessages = require('../discordTools/discordMessages.js');
-const DiscordTools = require('../discordTools/discordTools.js');
 const Scrape = require('../util/scrape.js');
 
 module.exports = {
@@ -36,28 +35,6 @@ module.exports = {
             const rustplus = client.rustplusInstances[guildId];
 
             if (!firstTime) await module.exports.handleBattlemetricsChanges(client, guildId);
-
-            /* Update information channel battlemetrics players */
-            const bmId = instance.activeServer !== null ?
-                instance.serverList[instance.activeServer].battlemetricsId : null;
-            let condition = instance.generalSettings.displayInformationBattlemetricsAllOnlinePlayers;
-            condition &= instance.activeServer !== null;
-            condition &= bmId !== null;
-            condition &= client.battlemetricsInstances.hasOwnProperty(bmId);
-            condition &= rustplus && rustplus.isOperational;
-
-            if (condition) {
-                await DiscordMessages.sendUpdateBattlemetricsOnlinePlayersInformationMessage(rustplus, bmId);
-            }
-            else {
-                if (instance.informationMessageId.battlemetricsPlayers !== null) {
-                    await DiscordTools.deleteMessageById(guildId, instance.channelId.information,
-                        instance.informationMessageId.battlemetricsPlayers);
-
-                    instance.informationMessageId.battlemetricsPlayers = null;
-                    client.setInstance(guildId, instance);
-                }
-            }
 
             for (const [trackerId, content] of Object.entries(instance.trackers)) {
                 const battlemetricsId = content.battlemetricsId;

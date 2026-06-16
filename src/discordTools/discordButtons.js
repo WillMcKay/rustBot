@@ -521,17 +521,6 @@ module.exports = {
             )];
     },
 
-    getDisplayInformationBattlemetricsAllOnlinePlayersButton: function (guildId, enabled) {
-        return new Discord.ActionRowBuilder().addComponents(
-            module.exports.getButton({
-                customId: 'DisplayInformationBattlemetricsAllOnlinePlayers',
-                label: enabled ?
-                    Client.client.intlGet(guildId, 'enabledCap') :
-                    Client.client.intlGet(guildId, 'disabledCap'),
-                style: enabled ? SUCCESS : DANGER
-            }));
-    },
-
     getSubscribeToChangesBattlemetricsButtons: function (guildId) {
         const instance = Client.client.getInstance(guildId);
 

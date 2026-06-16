@@ -33,7 +33,6 @@ module.exports = (client, guild) => {
             notificationSettings: client.readNotificationSettingsTemplate(),
             channelId: {
                 category: null,
-                information: null,
                 servers: null,
                 settings: null,
                 commands: null,
@@ -45,13 +44,6 @@ module.exports = (client, guild) => {
                 storageMonitors: null,
                 activity: null,
                 trackers: null
-            },
-            informationMessageId: {
-                map: null,
-                server: null,
-                event: null,
-                team: null,
-                battlemetricsPlayers: null
             },
             activeServer: null,
             serverList: {},
@@ -117,7 +109,6 @@ module.exports = (client, guild) => {
         if (!instance.hasOwnProperty('channelId')) {
             instance.channelId = {
                 category: null,
-                information: null,
                 servers: null,
                 settings: null,
                 commands: null,
@@ -133,7 +124,6 @@ module.exports = (client, guild) => {
         }
         else {
             if (!instance.channelId.hasOwnProperty('category')) instance.channelId.category = null;
-            if (!instance.channelId.hasOwnProperty('information')) instance.channelId.information = null;
             if (!instance.channelId.hasOwnProperty('servers')) instance.channelId.servers = null;
             if (!instance.channelId.hasOwnProperty('settings')) instance.channelId.settings = null;
             if (!instance.channelId.hasOwnProperty('commands')) instance.channelId.commands = null;
@@ -145,24 +135,6 @@ module.exports = (client, guild) => {
             if (!instance.channelId.hasOwnProperty('storageMonitors')) instance.channelId.storageMonitors = null;
             if (!instance.channelId.hasOwnProperty('activity')) instance.channelId.activity = null;
             if (!instance.channelId.hasOwnProperty('trackers')) instance.channelId.trackers = null;
-        }
-
-        if (!instance.hasOwnProperty('informationMessageId')) {
-            instance.informationMessageId = {
-                map: null,
-                server: null,
-                event: null,
-                team: null,
-                battlemetricsPlayers: null
-            }
-        }
-        else {
-            if (!instance.informationMessageId.hasOwnProperty('map')) instance.informationMessageId.map = null;
-            if (!instance.informationMessageId.hasOwnProperty('server')) instance.informationMessageId.server = null;
-            if (!instance.informationMessageId.hasOwnProperty('event')) instance.informationMessageId.event = null;
-            if (!instance.informationMessageId.hasOwnProperty('team')) instance.informationMessageId.team = null;
-            if (!instance.informationMessageId.hasOwnProperty('team'))
-                instance.informationMessageId.battlemetricsPlayers = null;
         }
 
         if (!instance.hasOwnProperty('activeServer')) instance.activeServer = null;
