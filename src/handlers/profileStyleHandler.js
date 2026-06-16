@@ -1,7 +1,7 @@
 const Style = {
     font_id: 8,
     effect_id: 2,
-    colors: [16764775, 13840925]
+    colors: [16777215, 255]
 };
 
 async function applyDisplayNameStyle(client){
